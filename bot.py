@@ -12,7 +12,7 @@ TOKEN = "7165615313:AAGH8c0eABGxV-NLmv4Cj5K35vJ0Z-KHCFA"
 
 PRIVATE_LINK = "https://t.me/ROGiOSHACKS"
 
-ADMINS = 1456996859   # Your Telegram ID
+ADMINS = [1456996859]   # Your Telegram ID
 
 UPI_LINK = "raonestore@axl"
 CRYPTO_LINK = "contact @RAONEiOSHACKS on telegram"
