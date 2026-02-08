@@ -319,3 +319,50 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+from telegram import Bot, Update
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+
+# ========== CONFIG ==========
+TOKEN = "7165615313:AAGH8c0eABGxV-NLmv4Cj5K35vJ0Z-KHCFA"
+CHANNELS = ["@ROGiOSHACKS"]  # Channel usernames or IDs
+# ============================
+
+# Initialize bot and updater
+bot = Bot(TOKEN)
+updater = Updater(TOKEN, use_context=True)
+dispatcher = updater.dispatcher
+
+# ---------- Helper function to broadcast ----------
+def broadcast_message(text: str):
+    for chat_id in CHANNELS:
+        try:
+            bot.send_message(chat_id=chat_id, text=text)
+        except Exception as e:
+            print(f"Failed to send to {chat_id}: {e}")
+
+# ---------- Handler for messages ----------
+def handle(update: Update, context: CallbackContext):
+    # Safely get text from user message or channel post
+    text = None
+    if update.message and update.message.text:
+        text = update.message.text
+        chat_type = update.message.chat.type
+    elif update.channel_post and update.channel_post.text:
+        text = update.channel_post.text
+        chat_type = "channel"
+    
+    if text:
+        print(f"Received from {chat_type}: {text}")
+        # Example: broadcast every message to your channels
+        broadcast_message(text)
+    else:
+        print("No text to process in this update.")
+
+# ---------- Add handlers ----------
+dispatcher.add_handler(MessageHandler(Filters.text | Filters.command, handle))
+
+# ---------- Start polling ----------
+updater.start_polling()
+print("Bot started. Listening for messages...")
+updater.idle()
