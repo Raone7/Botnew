@@ -334,35 +334,25 @@ updater = Updater(TOKEN, use_context=True)
 dispatcher = updater.dispatcher
 
 # ---------- Helper function to broadcast ----------
-def broadcast_message(text: str):
-    for chat_id in CHANNELS:
-        try:
-            bot.send_message(chat_id=chat_id, text=text)
-        except Exception as e:
-            print(f"Failed to send to {chat_id}: {e}")
-
-# ---------- Handler for messages ----------
-def handle(update: Update, context: CallbackContext):
-    # Safely get text from user message or channel post
+def handle(update, context):
+    # Initialize text as None
     text = None
+
+    # Check if this update is a user message
     if update.message and update.message.text:
         text = update.message.text
         chat_type = update.message.chat.type
+
+    # Check if this update is a channel post
     elif update.channel_post and update.channel_post.text:
         text = update.channel_post.text
         chat_type = "channel"
-    
+
+    # If text exists, process it
     if text:
         print(f"Received from {chat_type}: {text}")
-        # Example: broadcast every message to your channels
+        # Example: broadcast to channels
         broadcast_message(text)
     else:
-        print("No text to process in this update.")
-
-# ---------- Add handlers ----------
-dispatcher.add_handler(MessageHandler(Filters.text | Filters.command, handle))
-
-# ---------- Start polling ----------
-updater.start_polling()
-print("Bot started. Listening for messages...")
-updater.idle()
+        # No message to process (ignore)
+        print("Update has no text or message.")
