@@ -8,13 +8,13 @@ from telegram.ext import (
 
 
 # ========== CONFIG ==========
-TOKEN = "7165615313:AAGH8c0eABGxV-NLmv4Cj5K35vJ0Z-KHCFA"
+TOKEN = "your token"
 
-PRIVATE_LINK = "https://t.me/ROGiOSHACKS"
+PRIVATE_LINK = "https://t.me/channel"
 
-ADMINS = [1456996859]   # Your Telegram ID
+ADMINS = [admin id]   # Your Telegram ID
 
-UPI_LINK = "raonestore@axl"
+UPI_LINK = "upi id"
 CRYPTO_LINK = "contact @RAONEiOSHACKS on telegram"
 
 WEEKLY_PRICE = "$20"
